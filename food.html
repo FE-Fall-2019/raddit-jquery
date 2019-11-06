@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Raddit</title>
+    <title>Food</title>
     <link rel="stylesheet" type="text/css" href="main.css" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -8,15 +8,15 @@
     <script>
     $(document).ready(function() {
    // console.log('document is working') 
-   posts.forEach(post => drawPost(post))
+   posts.filter(p => p.subraddit === 'food').forEach(post => drawPost(post))
 })
     </script>
   </head>
   <body>
       <header class="flex row-container p20 aligned">
-            <a href="index.html" style="color: white">
+          <a href="index.html" style="color: white">
           <h1>Raddit</h1>
-          </a>
+        </a>
           <h26>- the hoppy side of the internet</h6>
       </header>
       <div class="main flex row-container">
