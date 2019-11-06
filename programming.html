@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Raddit</title>
+    <title>Raddit - Food</title>
     <link rel="stylesheet" type="text/css" href="main.css">
 
     <!--JQUERY-->
@@ -10,11 +10,11 @@
     <script src="main.js"></script>
 
     <script>
-    $(document).ready(function(){
-        posts.forEach(post => drawPost(post))
+    $(document).ready(function() {
+        posts.filter(p => p.subraddit === 'programming').forEach(post => drawPost(post));
     });
     </script>
-
+    
 </head>
 
 <body>
