@@ -1,9 +1,9 @@
 <html>
   <head>
     <title>Raddit</title>
-    <link rel="stylesheet" type="text/css" href="main.css" />
+    <link rel="stylesheet" type="text/css" href="j.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="main.js"></script>
+    <script src="j.js"></script>
     <script>
       $(document).ready(function() {
         posts.forEach(post => drawPost(post));
@@ -12,17 +12,16 @@
   </head>
 
   <body>
-    <header class="flex row-container p20 aligned">
-      <a href="index.html" style="color: #ecf0f1">
+    <header class="flex row-container p20 center">
+      <a href="j.html" style="color: #ecf0f1">
         <h1>Raddit</h1>
       </a>
-      <h6>--the hoppy side of the internet</h6>
+      <h6>--My side of the internet!</h6>
     </header>
     <div class="main flex row-container">
-      <div class="links flex col-container p20">
-        <u>Subraddits</u>
-        <a href="food.html">food</a>
-        <a href="drink.html">drink</a>
+      <div class="flex col-container p20 links">
+        <u>Subreddits</u>
+        <a href="photography.html">Photography</a>
       </div>
       <div id="content" class="flex col-container p20"></div>
     </div>

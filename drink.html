@@ -1,12 +1,14 @@
 <html>
   <head>
-    <title>Raddit</title>
+    <title>Raddit - drink</title>
     <link rel="stylesheet" type="text/css" href="main.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="main.js"></script>
     <script>
       $(document).ready(function() {
-        posts.forEach(post => drawPost(post));
+        posts
+          .filter(p => p.subraddit === "drink")
+          .forEach(post => drawPost(post));
       });
     </script>
   </head>
