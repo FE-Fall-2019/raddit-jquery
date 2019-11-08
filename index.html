@@ -2,11 +2,23 @@
   <head>
     <title>Raddit</title>
     <link rel="stylesheet" type="text/css" href="main.css" />
+
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.4.2/css/all.css"
+      integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns"
+      crossorigin="anonymous"
+    />
+
+    <!-- jQuery CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- page js file -->
     <script src="main.js"></script>
     <script>
       $(document).ready(function() {
-        posts.forEach(post => drawPost(post));
+        drawPosts();
       });
     </script>
   </head>
@@ -26,5 +38,25 @@
       </div>
       <div id="content" class="flex col-container p20"></div>
     </div>
+    <div class="new-post-form flex col-container aligned">
+      <span>Post Title:</span>
+      <input
+        type="text"
+        id="postTitle"
+        name="postTitle"
+        placeholder="New Post Title"
+      />
+      <span>Post Text:</span>
+      <input
+        type="text"
+        id="postText"
+        name="postText"
+        placeholder="New Post Body"
+      />
+      <span>Post Subraddit:</span>
+      <input type="text" id="postSubraddit" name="postSubraddit" />
+      <button onclick="createNewPost()">Create New Post</button>
+    </div>
+    <div style="height: 200px;"></div>
   </body>
 </html>
