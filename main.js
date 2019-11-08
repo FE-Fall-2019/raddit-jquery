@@ -7,6 +7,7 @@ var posts = [
         subraddit: 'programming',
         likes: 0,
         dislikes: 0,
+        interaction: 0
     },
     {
         id: 1,
@@ -61,14 +62,22 @@ function drawPost(post) {
 
 function likePost(id) {
     let post = posts.find(p => p.id === id);
+    if (post.interaction > 0) {
+        return;
+    }
     post.likes++;
+    post.interaction = 1;
     $('#up' + id).addClass('red');
     drawPosts();
 }
 
 function dislikePost(id) {
     let post = posts.find(p => p.id === id);
+    if (post.interaction < 0) {
+        return;
+    }
     post.dislikes++;
+    post.interaction = -1;
     $('#down' + id).addClass('blue');
     drawPosts();
 }
@@ -91,7 +100,7 @@ function printLeftHTML(post) {
 }
 
 function printThumbsUp(post) {
-    var tempHTML = '<div id="up' + post.id + '" onclick="likePost(' + post.id + ')">';
+    var tempHTML = '<div class="' + (post.interaction > 0 ? 'red' : '') + '" id="up' + post.id + '" onclick="likePost(' + post.id + ')">';
     tempHTML += '<i class="far fa-thumbs-up"></i>';
     tempHTML += '</div>';
     return tempHTML;
@@ -102,7 +111,7 @@ function printCount(post) {
 }
 
 function printThumbsDown(post) {
-    var tempHTML = '<div id="down' + post.id + '" onclick="dislikePost(' + post.id + ')">';
+    var tempHTML = '<div class="' + (post.interaction < 0 ? 'blue' : '') + '" id="down' + post.id + '" onclick="dislikePost(' + post.id + ')">';
     tempHTML += '<i class="far fa-thumbs-down"></i>';
     tempHTML += '</div>';
     return tempHTML;
