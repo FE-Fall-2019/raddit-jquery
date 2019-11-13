@@ -11,7 +11,7 @@
     <script src="main.js"></script>
     <script>
         $(document).ready(function () {
-            posts.filter(p => p.subraddit === 'food').forEach(post => drawPost(post));
+            posts.filter(post => post.subraddit === 'food').forEach(post => drawPost(post));
         });
     </script>
 </head>
