@@ -1,7 +1,9 @@
 <html>
 
 <head>
-    <title>Raddit - food</title>
+    <title>
+        Raddit
+    </title>
     <link rel="stylesheet" type="text/css" href="main.css">
 
     <!-- font awesome -->
@@ -10,18 +12,10 @@
 
     <!-- jquery cdn -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    <!-- page js file -->
     <script src="main.js"></script>
     <script>
         $(document).ready(function () {
-            var postList = [];
-            $.get(
-                "http://api-test.new-labs.co:8080/demo/post/subraddit/food", function (data, status) {
-                    postList = data;
-                    postList.forEach(post => drawPost(post));
-                }
-            )
+            console.log('do this later');
         });
     </script>
 </head>
@@ -33,18 +27,25 @@
         </a>
         <h6>-- the hoppy side of the internet</h6>
     </header>
-    <div class="main flex row-container">
+    <div class="flex row-container">
         <div class="links flex col-container p20">
-            <a href="create.html">Create New Post</a>
             <u>Subraddits</u>
             <a href="food.html">food</a>
             <a href="drink.html">drink</a>
-            <a href="programming.html">programming</a>
         </div>
-        <div id="content" class="flex col-container p20">
 
+        <div class="new-post-form flex col-container p20">
+            <h1>Create New Post</h1>
+            <span>Post Title:</span>
+            <input type="text" id="postTitle" name="postTitle" placeholder="New Post Title">
+            <span>Post Text:</span>
+            <input type="text" id="postText" name="postText" placeholder="New Post Body">
+            <span>Post Subraddit:</span>
+            <input type="text" id="postSubraddit" name="postSubraddit">
+            <button onclick="createNewPost()">Create New Post</button>
         </div>
     </div>
+    <div style="height: 200px"></div>
 </body>
 
 </html>
