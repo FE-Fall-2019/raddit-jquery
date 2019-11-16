@@ -1,9 +1,12 @@
 function drawPost(post) {
-    var element = document.createElement('post');
-    element.id = 'post' + post.id;
+    $.get("http://api-test.new-labs.co:8080/demo/comment/" + post.id, function (data, status) {
+        post.comments = data;
+        var element = document.createElement('post');
+        element.id = 'post' + post.id;
 
-    element.innerHTML = printFullHTML(post);
-    $('#content').append(element);
+        element.innerHTML = printFullHTML(post);
+        $('#content').append(element);
+    });
 }
 
 function likePost(id) {
@@ -14,7 +17,6 @@ function likePost(id) {
     post.likes++;
     post.interaction = 1;
     $('#up' + id).addClass('red');
-    drawPosts();
 }
 
 function dislikePost(id) {
@@ -25,7 +27,6 @@ function dislikePost(id) {
     post.dislikes++;
     post.interaction = -1;
     $('#down' + id).addClass('blue');
-    drawPosts();
 }
 
 function printFullHTML(post) {
@@ -34,6 +35,14 @@ function printFullHTML(post) {
     fullHTML += printRightHTML(post);
     fullHTML += '</div>';
     return fullHTML;
+}
+
+function printCommentHTML(comment) {
+    var tempHTML = "<div class='p20' id='comment" + comment.id + "'>";
+    tempHTML += "<h4>" + comment.author + "</h4>";
+    tempHTML += "<h6>" + comment.body + "</h6>";
+    tempHTML += "</div>";
+    return tempHTML;
 }
 
 function printLeftHTML(post) {
@@ -68,6 +77,19 @@ function printRightHTML(post) {
     tempHTML += printTitle(post.title);
     tempHTML += printText(post.body || '');
     tempHTML += printAuthor(post.author);
+    tempHTML += '<div class="p20">Comments</div>';
+    post.comments.forEach(comment => {
+        tempHTML += printCommentHTML(comment);
+    });
+    tempHTML += printNewComment(post);
+    tempHTML += '</div>';
+    return tempHTML;
+}
+
+function printNewComment(post) {
+    var tempHTML = '<div class="p20">';
+    tempHTML += '<input type="text" id="commentInput" placeholder="Enter new comment" /><br />';
+    tempHTML += '<button onclick="createNewComment(' + post.id + ')">Add Comment</button>';
     tempHTML += '</div>';
     return tempHTML;
 }
@@ -113,4 +135,28 @@ function createNewPost() {
             alert('something bad happened');
         }
     });
+}
+
+function createNewComment(id) {
+    let body = $('#commentInput').val();
+
+    let newComment = {
+        postId: id,
+        body: body,
+        author: 'user@test.com'
+    }
+
+    $.ajax({
+        url: "http://api-test.new-labs.co:8080/demo/comment",
+        type: "POST",
+        data: JSON.stringify(newComment),
+        contentType: "application/json; charset=UTF-8",
+        dataType: "json",
+        success: function (data, status) {
+            $(location).attr("href", "index.html");
+        },
+        error: function () {
+            alert('nope');
+        }
+    })
 }
