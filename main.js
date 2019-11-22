@@ -1,38 +1,48 @@
 function drawPost(post) {
-    $.get("http://api-test.new-labs.co:8080/demo/comment/" + post.id, function (data, status) {
-        post.comments = data;
-        var element = document.createElement('post');
-        element.id = 'post' + post.id;
+    var element = document.createElement('post');
+    element.id = 'post' + post.id;
 
-        element.innerHTML = printFullHTML(post);
+    printFullHTML(post).then(data => {
+        element.innerHTML = data;
         $('#content').append(element);
-    });
+    })
 }
 
 function likePost(id) {
-    let post = posts.find(p => p.id === id);
-    if (post.interaction > 0) {
-        return;
-    }
-    post.likes++;
-    post.interaction = 1;
-    $('#up' + id).addClass('red');
+    $.ajax({
+        url: 'http://api-test.new-labs.co:8080/demo/post/addlike/' + id,
+        method: 'POST',
+        success: function (data, status) {
+            $('#up' + id).addClass('red');
+            $('#down' + id).removeClass('blue');
+            $('#postCount' + id).html(data.likes - data.dislikes);
+        },
+        error: function (err, status) {
+            console.log(err);
+        }
+    });
+
 }
 
 function dislikePost(id) {
-    let post = posts.find(p => p.id === id);
-    if (post.interaction < 0) {
-        return;
-    }
-    post.dislikes++;
-    post.interaction = -1;
-    $('#down' + id).addClass('blue');
+    $.ajax({
+        url: 'http://api-test.new-labs.co:8080/demo/post/unlike/' + id,
+        method: 'POST',
+        success: function (data, status) {
+            $('#down' + id).addClass('blue');
+            $('#up' + id).remov\Class('red');
+            $('#postCount' + id).html(data.likes - data.dislikes);
+        },
+        error: function (err, status) {
+            console.log(err);
+        }
+    });
 }
 
-function printFullHTML(post) {
+async function printFullHTML(post) {
     var fullHTML = '<div class="flex row-container">';
     fullHTML += printLeftHTML(post);
-    fullHTML += printRightHTML(post);
+    fullHTML += await printRightHTML(post);
     fullHTML += '</div>';
     return fullHTML;
 }
@@ -62,7 +72,10 @@ function printThumbsUp(post) {
 }
 
 function printCount(post) {
-    return post.likes - post.dislikes;
+    var tempHTML = '<div id="postCount' + post.id + '">';
+    tempHTML += post.likes - post.dislikes;
+    tempHTML += '</div>';
+    return tempHTML;
 }
 
 function printThumbsDown(post) {
@@ -72,18 +85,25 @@ function printThumbsDown(post) {
     return tempHTML;
 }
 
-function printRightHTML(post) {
+async function printRightHTML(post) {
     var tempHTML = '<div class="flex col-container" style="width: 100%">';
     tempHTML += printTitle(post.title);
     tempHTML += printText(post.body || '');
     tempHTML += printAuthor(post.author);
-    tempHTML += '<div class="p20">Comments</div>';
-    post.comments.forEach(comment => {
+    tempHTML += '<div class="p20 cursor" onclick="toggleComments(' + post.id + ')">Show Comments</div>';
+    tempHTML += '<div style="display: none" id="commentSection' + post.id + '">';
+    let comments = await $.get("http://api-test.new-labs.co:8080/demo/comment/" + post.id);
+    comments.forEach(comment => {
         tempHTML += printCommentHTML(comment);
     });
     tempHTML += printNewComment(post);
     tempHTML += '</div>';
+    tempHTML += '</div>';
     return tempHTML;
+}
+
+function toggleComments(id) {
+    $('#commentSection' + id).toggle();
 }
 
 function printNewComment(post) {

@@ -95,3 +95,8 @@ post {
 .blue {
     color: lightskyblue;
 }
+
+.cursor:hover {
+    cursor: pointer;
+    color: lightskyblue;
+}
