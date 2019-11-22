@@ -30,7 +30,7 @@ function dislikePost(id) {
         method: 'POST',
         success: function (data, status) {
             $('#down' + id).addClass('blue');
-            $('#up' + id).remov\Class('red');
+            $('#up' + id).removeClass('red');
             $('#postCount' + id).html(data.likes - data.dislikes);
         },
         error: function (err, status) {
