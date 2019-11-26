@@ -87,3 +87,16 @@ post {
     padding: 20px;
     font-size: 10px;
 }
+
+.red  {
+    color: orangered;
+}
+
+.blue {
+    color: lightskyblue;
+}
+
+.cursor:hover {
+    cursor: pointer;
+    color: lightskyblue;
+}

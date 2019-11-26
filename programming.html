@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Raddit - food</title>
+    <title>Raddit - drink</title>
     <link rel="stylesheet" type="text/css" href="main.css">
 
     <!-- font awesome -->
@@ -17,7 +17,7 @@
         $(document).ready(function () {
             var postList = [];
             $.get(
-                "http://api-test.new-labs.co:8080/demo/post/subraddit/food", function (data, status) {
+                "http://api-test.new-labs.co:8080/demo/post/subraddit/programming", function (data, status) {
                     postList = data;
                     postList.forEach(post => drawPost(post));
                 }
